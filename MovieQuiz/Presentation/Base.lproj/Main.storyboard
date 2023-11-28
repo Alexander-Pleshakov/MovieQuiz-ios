@@ -28,7 +28,7 @@
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="LvY-ED-Ara">
                                 <rect key="frame" x="20" y="69" width="353" height="749"/>
                                 <subviews>
-                                    <stackView opaque="NO" contentMode="scaleToFill" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="arq-88-FTF">
+                                    <stackView opaque="NO" contentMode="scaleToFill" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="arq-88-FTF" userLabel="Question Stack View">
                                         <rect key="frame" x="0.0" y="0.0" width="353" height="24"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="Вопрос:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ecx-bE-RwI" userLabel="Question Title Label">
@@ -63,7 +63,7 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="fvR-JL-nur">
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="fvR-JL-nur" userLabel="Buttons Stack View">
                                         <rect key="frame" x="0.0" y="689" width="353" height="60"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="EVt-BF-Itu" userLabel="No Button">
@@ -86,6 +86,9 @@
                                                         <integer key="value" value="15"/>
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="buttonNoClicked:" destination="BYZ-38-t0r" eventType="touchUpInside" id="ap2-ps-FLV"/>
+                                                </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pG2-lv-0mv" userLabel="Yes Button">
                                                 <rect key="frame" x="186.66666666666663" y="0.0" width="166.33333333333337" height="60"/>
@@ -107,17 +110,20 @@
                                                         <integer key="value" value="15"/>
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="buttonYesClicked:" destination="BYZ-38-t0r" eventType="touchUpInside" id="AbO-N7-kyl"/>
+                                                </connections>
                                             </button>
                                         </subviews>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="60" id="FkC-BQ-MoY"/>
+                                            <constraint firstItem="pG2-lv-0mv" firstAttribute="leading" secondItem="EVt-BF-Itu" secondAttribute="trailing" constant="20" id="Tw2-cn-dZV"/>
                                         </constraints>
                                     </stackView>
                                 </subviews>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="arq-88-FTF" secondAttribute="trailing" id="08m-LX-4N4"/>
-                                    <constraint firstAttribute="trailing" secondItem="fvR-JL-nur" secondAttribute="trailing" id="IEU-Zm-U04"/>
-                                    <constraint firstItem="fvR-JL-nur" firstAttribute="leading" secondItem="LvY-ED-Ara" secondAttribute="leading" id="J32-q8-Cn0"/>
+                                    <constraint firstItem="fvR-JL-nur" firstAttribute="leading" secondItem="LvY-ED-Ara" secondAttribute="leading" id="VQq-85-tOI"/>
                                     <constraint firstItem="arq-88-FTF" firstAttribute="leading" secondItem="LvY-ED-Ara" secondAttribute="leading" id="nOh-EP-49B"/>
                                 </constraints>
                             </stackView>
@@ -131,6 +137,11 @@
                             <constraint firstItem="LvY-ED-Ara" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="tko-M0-H8g"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="posterImage" destination="X73-lr-BQS" id="HQx-pO-C5R"/>
+                        <outlet property="questionIndexLabel" destination="HJM-ch-c41" id="LdQ-df-PTd"/>
+                        <outlet property="questionLabel" destination="Lz8-EL-Pv2" id="3H9-CY-FEW"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
