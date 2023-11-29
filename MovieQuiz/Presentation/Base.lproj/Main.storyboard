@@ -34,13 +34,13 @@
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="Вопрос:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ecx-bE-RwI" userLabel="Question Title Label">
                                                 <rect key="frame" x="0.0" y="0.3333333333333286" width="71.666666666666671" height="23.666666666666668"/>
                                                 <fontDescription key="fontDescription" name="YSDisplay-Medium" family="YS Display" pointSize="20"/>
-                                                <nil key="textColor"/>
+                                                <color key="textColor" name="YP White"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1/10" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HJM-ch-c41" userLabel="Index Label">
                                                 <rect key="frame" x="71.666666666666657" y="0.3333333333333286" width="281.33333333333337" height="23.666666666666668"/>
                                                 <fontDescription key="fontDescription" name="YSDisplay-Medium" family="YS Display" pointSize="20"/>
-                                                <nil key="textColor"/>
+                                                <color key="textColor" name="YP White"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                         </subviews>
@@ -52,7 +52,7 @@
                                         <rect key="frame" x="0.0" y="44" width="353" height="529.66666666666663"/>
                                         <color key="backgroundColor" name="YP White"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" secondItem="X73-lr-BQS" secondAttribute="height" multiplier="2:3" id="AIi-4l-Hc7"/>
+                                            <constraint firstAttribute="width" secondItem="X73-lr-BQS" secondAttribute="height" multiplier="2:3" id="z4B-jS-cRe"/>
                                         </constraints>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lz8-EL-Pv2" userLabel="Question Title Label">
@@ -60,7 +60,7 @@
                                         <string key="text">Рейтинг этого фильма
 меньше чем 5?</string>
                                         <fontDescription key="fontDescription" name="YSDisplay-Bold" family="YS Display" pointSize="23"/>
-                                        <nil key="textColor"/>
+                                        <color key="textColor" name="YP White"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="fvR-JL-nur" userLabel="Buttons Stack View">
@@ -123,6 +123,8 @@
                                 </subviews>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="arq-88-FTF" secondAttribute="trailing" id="08m-LX-4N4"/>
+                                    <constraint firstItem="X73-lr-BQS" firstAttribute="leading" secondItem="LvY-ED-Ara" secondAttribute="leading" id="33q-YM-g1o"/>
+                                    <constraint firstAttribute="trailing" secondItem="X73-lr-BQS" secondAttribute="trailing" id="6Vu-qF-HhY"/>
                                     <constraint firstItem="fvR-JL-nur" firstAttribute="leading" secondItem="LvY-ED-Ara" secondAttribute="leading" id="VQq-85-tOI"/>
                                     <constraint firstItem="arq-88-FTF" firstAttribute="leading" secondItem="LvY-ED-Ara" secondAttribute="leading" id="nOh-EP-49B"/>
                                 </constraints>
@@ -138,9 +140,11 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="noButton" destination="EVt-BF-Itu" id="ytO-NV-chb"/>
                         <outlet property="posterImage" destination="X73-lr-BQS" id="HQx-pO-C5R"/>
                         <outlet property="questionIndexLabel" destination="HJM-ch-c41" id="LdQ-df-PTd"/>
                         <outlet property="questionLabel" destination="Lz8-EL-Pv2" id="3H9-CY-FEW"/>
+                        <outlet property="yesButton" destination="pG2-lv-0mv" id="6UX-OE-uWs"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

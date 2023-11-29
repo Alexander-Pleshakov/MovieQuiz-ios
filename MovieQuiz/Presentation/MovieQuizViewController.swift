@@ -13,10 +13,10 @@ private struct QuizStepViewModel {
     let questionNumber: String
 }
 
-struct QuizResultsViewModel {
-  let title: String
-  let text: String
-  let buttonText: String
+private struct QuizResultsViewModel {
+    let title: String
+    let text: String
+    let buttonText: String
 }
 
 final class MovieQuizViewController: UIViewController {
@@ -56,6 +56,8 @@ final class MovieQuizViewController: UIViewController {
     private var currentQuestionIndex = 0
     private var correctAnswers = 0
     
+    @IBOutlet private weak var noButton: UIButton!
+    @IBOutlet private weak var yesButton: UIButton!
     @IBOutlet private weak var posterImage: UIImageView!
     @IBOutlet private weak var questionLabel: UILabel!
     @IBOutlet private weak var questionIndexLabel: UILabel!
@@ -67,6 +69,8 @@ final class MovieQuizViewController: UIViewController {
         
         let viewModel = convert(model: questions[currentQuestionIndex])
         show(quiz: viewModel)
+        
+        
     }
     
     private func convert(model: QuizQuestion) -> QuizStepViewModel {
@@ -101,6 +105,9 @@ final class MovieQuizViewController: UIViewController {
     }
     
     private func showAnswerResult(isCorrect: Bool) {
+        noButton.isEnabled = false
+        yesButton.isEnabled = false
+        
         if isCorrect {
             correctAnswers += 1
         }
@@ -108,9 +115,10 @@ final class MovieQuizViewController: UIViewController {
         posterImage.layer.masksToBounds = true
         posterImage.layer.borderWidth = 8
         posterImage.layer.borderColor = isCorrect ? UIColor.ypGreen.cgColor : UIColor.ypRed.cgColor
-        
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
             self.showNextQuestionOrResults()
+            self.noButton.isEnabled = true
+            self.yesButton.isEnabled = true
         }
     }
     
