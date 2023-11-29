@@ -17,16 +17,16 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="LaunchScreen" translatesAutoresizingMaskIntoConstraints="NO" id="NTE-0v-BDS">
-                                <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                                <rect key="frame" x="-1" y="-1" width="395" height="854"/>
                             </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstAttribute="bottom" secondItem="NTE-0v-BDS" secondAttribute="bottom" id="59h-62-FEV"/>
-                            <constraint firstItem="NTE-0v-BDS" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" id="C4H-Le-Phq"/>
-                            <constraint firstAttribute="trailing" secondItem="NTE-0v-BDS" secondAttribute="trailing" id="OOT-4f-XwD"/>
-                            <constraint firstItem="NTE-0v-BDS" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="top" id="rHJ-Z8-p5L"/>
+                            <constraint firstAttribute="bottom" secondItem="NTE-0v-BDS" secondAttribute="bottom" constant="-1" id="59h-62-FEV"/>
+                            <constraint firstItem="NTE-0v-BDS" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" constant="-1" id="C4H-Le-Phq"/>
+                            <constraint firstAttribute="trailing" secondItem="NTE-0v-BDS" secondAttribute="trailing" constant="-1" id="OOT-4f-XwD"/>
+                            <constraint firstItem="NTE-0v-BDS" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="top" constant="-1" id="rHJ-Z8-p5L"/>
                         </constraints>
                     </view>
                 </viewController>
