@@ -64,6 +64,9 @@ final class StatisticServiceImplementation: StatisticService {
     }
     
     func store(correct count: Int, total amount: Int) {
+        gamesCount += 1
+        total += amount
+        correct += count
         let newRecord = GameRecord(correct: count, total: amount, date: Date())
         guard let data = userDefaults.data(forKey: Keys.bestGame.rawValue),
               let record = try? JSONDecoder().decode(GameRecord.self, from: data) else {
