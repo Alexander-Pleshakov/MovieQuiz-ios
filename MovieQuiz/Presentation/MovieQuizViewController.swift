@@ -29,6 +29,8 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
         super.viewDidLoad()
            
         posterImage.layer.cornerRadius = 20
+        activityIndicator.hidesWhenStopped = true
+        
         questionFactory = QuestionFactory(moviesLoader: MoviesLoader(), delegate: self)
         statisticService = StatisticServiceImplementation()
 
@@ -48,11 +50,25 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
         DispatchQueue.main.async { [weak self] in
             self?.show(quiz: viewModel)
         }
+        hideLoadingIndicator()
+        changeButtonState(isEnabled: true)
     }
     
     func didLoadDataFromServer() {
-        activityIndicator.isHidden = true // скрываем индикатор загрузки
-        questionFactory?.requestNextQuestion()
+        hideLoadingIndicator()
+        if (questionFactory?.moviesIsEmpty() ?? true) {
+            let model = AlertModel(title: "Ошибка загрузки",
+                                   message: "Проблемы с API key\nПопробуйте позже",
+                                   buttonText: "Ok") { [weak self] _ in
+                self?.questionFactory?.loadData()
+            }
+            
+            let alert = AlertPresenter(delegate: self)
+            showLoadingIndicator()
+            alert.showAlert(model: model)
+        } else {
+            questionFactory?.requestNextQuestion()
+        }
     }
     
     func didFailToLoadData(with error: Error) {
@@ -62,12 +78,10 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
     //MARK: Private Functions
     
     private func showLoadingIndicator() {
-        activityIndicator.isHidden = false
         activityIndicator.startAnimating()
     }
     
     private func hideLoadingIndicator() {
-        activityIndicator.isHidden = true
         activityIndicator.stopAnimating()
     }
     
@@ -119,8 +133,8 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
         posterImage.layer.borderColor = isCorrect ? UIColor.ypGreen.cgColor : UIColor.ypRed.cgColor
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) { [weak self] in
             guard let self = self else { return }
+            showLoadingIndicator()
             self.showNextQuestionOrResults()
-            self.changeButtonState(isEnabled: true)
         }
     }
     
@@ -145,13 +159,14 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
                 self.currentQuestionIndex = 0
                 self.correctAnswers = 0
                 
+                showLoadingIndicator()
                 questionFactory?.requestNextQuestion()
             }
             resultAlert = AlertPresenter(delegate: self)
             resultAlert?.showAlert(model: viewModel)
         } else {
             currentQuestionIndex += 1
-            
+            showLoadingIndicator()
             questionFactory?.requestNextQuestion()
         }
     }
