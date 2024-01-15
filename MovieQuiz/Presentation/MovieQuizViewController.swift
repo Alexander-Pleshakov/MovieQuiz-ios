@@ -31,7 +31,7 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
         posterImage.layer.cornerRadius = 20
         activityIndicator.hidesWhenStopped = true
         
-        questionFactory = QuestionFactory(moviesLoader: MoviesLoader(), delegate: self)
+        questionFactory = QuestionFactory(moviesLoader: MoviesLoader(networkClient: NetworkClient()), delegate: self)
         statisticService = StatisticServiceImplementation()
 
         showLoadingIndicator()
@@ -66,9 +66,9 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
             let alert = AlertPresenter(delegate: self)
             showLoadingIndicator()
             alert.showAlert(model: model)
-        } else {
-            questionFactory?.requestNextQuestion()
+            return
         }
+        questionFactory?.requestNextQuestion()
     }
     
     func didFailToLoadData(with error: Error) {
