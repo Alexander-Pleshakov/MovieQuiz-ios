@@ -9,7 +9,10 @@ import UIKit
 
 
 final class MovieQuizPresenter: QuestionFactoryDelegate {
-    private weak var viewController: MovieQuizViewController?
+    
+    // MARK: Properties
+    
+    private weak var viewController: MovieQuizViewControllerProtocol?
     private let questionsAmount = 10
     
     private var currentQuestionIndex = 0
@@ -20,8 +23,9 @@ final class MovieQuizPresenter: QuestionFactoryDelegate {
     private var resultAlert: AlertPresenter?
     private var statisticService: StatisticService?
     
+    // MARK: Init
     
-    init(viewController: MovieQuizViewController) {
+    init(viewController: MovieQuizViewControllerProtocol) {
         self.viewController = viewController
         
         statisticService = StatisticServiceImplementation()
@@ -30,48 +34,9 @@ final class MovieQuizPresenter: QuestionFactoryDelegate {
         questionFactory?.loadData()
         viewController.showLoadingIndicator()
     }
+
     
-    private func convert(model: QuizQuestion) -> QuizStepViewModel {
-        let questionStep = QuizStepViewModel(image: UIImage(data: model.image) ?? UIImage(),
-            question: model.text,
-            questionNumber: "\(currentQuestionIndex + 1)/\(questionsAmount)")
-        
-        return questionStep
-    }
-    
-    private func isLastQuestion() -> Bool {
-        currentQuestionIndex == questionsAmount - 1
-    }
-    
-    private func resetQuestionIndex() {
-        currentQuestionIndex = 0
-    }
-    
-    private func switchToNextQuestion() {
-        currentQuestionIndex += 1
-    }
-    
-    func restartGame() {
-        currentQuestionIndex = 0
-        correctAnswers = 0
-        questionFactory?.requestNextQuestion()
-    }
-    
-    private func didAnswer(isCorrect: Bool) {
-        if isCorrect {
-            correctAnswers += 1
-        }
-    }
-    
-    func buttonYesClicked() {
-        didAnswer(isYes: true)
-    }
-    
-    func buttonNoClicked() {
-        didAnswer(isYes: false)
-    }
-    
-    //MARK: QuestionFactoryDelegate
+    // MARK: QuestionFactoryDelegate
     
     func didReceiveNextQuestion(question: QuizQuestion?) {
         guard let question = question else {
@@ -96,7 +61,7 @@ final class MovieQuizPresenter: QuestionFactoryDelegate {
                 self?.questionFactory?.loadData()
             }
             
-            let alert = AlertPresenter(delegate: viewController)
+            let alert = AlertPresenter(delegate: viewController as? MovieQuizViewController)
             viewController?.showLoadingIndicator()
             alert.showAlert(model: model)
             return
@@ -108,9 +73,49 @@ final class MovieQuizPresenter: QuestionFactoryDelegate {
         viewController?.showNetworkError(message: error.localizedDescription)
     }
     
+    // MARK: Internal Functions
     
+    func restartGame() {
+        currentQuestionIndex = 0
+        correctAnswers = 0
+        questionFactory?.requestNextQuestion()
+    }
     
-    //-----
+    func buttonYesClicked() {
+        didAnswer(isYes: true)
+    }
+    
+    func buttonNoClicked() {
+        didAnswer(isYes: false)
+    }
+    
+    // MARK: Private Functions
+    
+    private func didAnswer(isCorrect: Bool) {
+        if isCorrect {
+            correctAnswers += 1
+        }
+    }
+    
+    func convert(model: QuizQuestion) -> QuizStepViewModel {
+        let questionStep = QuizStepViewModel(image: UIImage(data: model.image) ?? UIImage(),
+            question: model.text,
+            questionNumber: "\(currentQuestionIndex + 1)/\(questionsAmount)")
+        
+        return questionStep
+    }
+    
+    private func isLastQuestion() -> Bool {
+        currentQuestionIndex == questionsAmount - 1
+    }
+    
+    private func resetQuestionIndex() {
+        currentQuestionIndex = 0
+    }
+    
+    private func switchToNextQuestion() {
+        currentQuestionIndex += 1
+    }
     
     private func proceedToNextQuestionOrResults() {
         if isLastQuestion() {
@@ -133,7 +138,7 @@ final class MovieQuizPresenter: QuestionFactoryDelegate {
                 viewController?.showLoadingIndicator()
                 restartGame()
             }
-            resultAlert = AlertPresenter(delegate: viewController)
+            resultAlert = AlertPresenter(delegate: viewController as? MovieQuizViewController)
             resultAlert?.showAlert(model: viewModel)
         } else {
             switchToNextQuestion()
